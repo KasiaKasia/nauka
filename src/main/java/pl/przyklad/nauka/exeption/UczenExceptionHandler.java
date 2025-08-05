@@ -1,12 +1,23 @@
 package pl.przyklad.nauka.exeption;
-import org.springframework.web.bind.annotation.RestControllerAdvice;
+
 
 import java.time.ZonedDateTime;
-import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.ExceptionHandler;
-import static org.springframework.http.HttpStatus.NOT_FOUND;
-import jakarta.persistence.EntityNotFoundException;
+import java.util.stream.Collectors;
 
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.HttpStatusCode;
+import org.springframework.http.ResponseEntity;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.web.bind.MethodArgumentNotValidException;
+import org.springframework.web.bind.annotation.ExceptionHandler;
+import org.springframework.web.bind.annotation.RestControllerAdvice;
+import org.springframework.web.context.request.WebRequest;
+import org.springframework.web.servlet.mvc.method.annotation.ResponseEntityExceptionHandler;
+
+import static org.apache.commons.lang3.exception.ExceptionUtils.getStackTrace;
+import static org.springframework.http.HttpStatus.NOT_FOUND;
+import static org.springframework.http.HttpStatus.UNPROCESSABLE_ENTITY;
+import jakarta.persistence.EntityNotFoundException;
 
 /*
  * Klasy oznaczone adnotacją @RestControllerAdvice działają jako globalny punkt przechowywania wyjątków w aplikacji webowej.
@@ -17,13 +28,57 @@ import jakarta.persistence.EntityNotFoundException;
  * 
  * */
 
-
 @RestControllerAdvice
-public class UczenExceptionHandler {
+public class UczenExceptionHandler extends ResponseEntityExceptionHandler {
+	
+    @Value("${uczen.application.error.should.print.stacktrace}")
+    private boolean czyWypisacSladBledu;
+	
 	@ExceptionHandler(EntityNotFoundException.class)
-	   public ResponseEntity<ErrorResponse> handleEntityNotFoundException(EntityNotFoundException e) {
-	        var errorResponse = ErrorResponse.builder().message(e.getMessage()).timestamp(ZonedDateTime.now()).build();
-	        return ResponseEntity.status(NOT_FOUND).body(errorResponse);
-	    }
+	public ResponseEntity<ErrorResponse> handleEntityNotFoundException(EntityNotFoundException e) {
+		var errorResponseBuilder = errorResponseBuilder(e).build();
+				
+//				ErrorResponse.builder()
+//				.wiadomosc(e.getMessage())
+//				.dataCzas(ZonedDateTime.now())
+//				.build();
+		/* 
+ 		 * ResponseEntity.status - to metoda która tworzy odpowiedź HTTP z określonym statusem HTTP
+ 		 * NOT_FOUND - to stała reprezentujaca kod odpowiedzi HTTP 404 Not Found 
+ 		 * */
+		return ResponseEntity.status(NOT_FOUND).body(errorResponseBuilder);
+	}
+
+	@Override
+	protected ResponseEntity<Object> handleMethodArgumentNotValid(MethodArgumentNotValidException ex,
+			HttpHeaders headers, HttpStatusCode status, WebRequest request) {
+
+		var validationErrors = ex.getBindingResult().getFieldErrors().stream()
+				.map(fe -> new ValidationError(fe.getField(), fe.getDefaultMessage())).collect(Collectors.toList());
+ 		
+		var errorResponseBuilder = errorResponseBuilder(ex).walidacjaBledu(validationErrors).build();
+//				ErrorResponse.builder()
+//				.wiadomosc(ex.getMessage())
+//				.dataCzas(ZonedDateTime.now())
+//				.walidacjaBledu(validationErrors)
+//				.build();
+ 		/* UNPROCESSABLE_ENTITY - to stała reprezentujaca kod odpowiedzi HTTP 422 Unprocessable Entity 
+ 		 * Serwer zrozumiał żądanie, ale nie może go przetworzyć, ponieważ zawiera semantyczne błędy.
+ 		 * Dla przykładu wysyłamy imie i nazwisko jako puste , czyli jest poprawne składiowo, ale nie przechodzi validacji @NotBlank
+ 		 * */
+		return ResponseEntity.status(UNPROCESSABLE_ENTITY).body(errorResponseBuilder);
+		
+	}
+	    private ErrorResponse.ErrorResponseBuilder errorResponseBuilder(Exception e){
+	        var errorResponseBuilder = ErrorResponse.builder()
+	                .wiadomosc(e.getMessage())
+	                .dataCzas(ZonedDateTime.now());
+	        
+	        if(czyWypisacSladBledu) {
+	        	errorResponseBuilder.sciezkaBledu(getStackTrace(e));
+	        } 
+	       
+	        return errorResponseBuilder;
+ 	}
 
 }

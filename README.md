@@ -3,12 +3,12 @@
 
 ## Istotne pojęcia
 
-### pom.xml 
-pom = Project Object Model
+### pom.xml ( pom = Project Object Model )
+
 pom.xml = główny plik konfiguracyjny projektu opartego na Maven. Formtu XML zawierający informacje o projekcie, jego zależnościach, pluginach, kompilatorze i innych ustawieniach.
 
 ### dependency
-`spring-boot-starter-validation` obsługuje m.in. takie adnotację:
+- [ ] `spring-boot-starter-validation` obsługuje m.in. takie adnotację:
 
 | <strong>Adnotacja</strong> | <strong>	Opis</strong>  |
 | :---         					|     :---      |
@@ -34,3 +34,25 @@ pom.xml = główny plik konfiguracyjny projektu opartego na Maven. Formtu XML za
     <artifactId>spring-boot-starter-validation</artifactId>
 </dependency>
 ```
+- [ ] `commons-lang3` - to rozszerzenie standardowych klas Javy, które dostarcza dodatkowe narzędzia i utilsy do pracy z: String, Number, Date, Object, Class, Enum itp.,
+
+Klasy pomocnicze, np.:
+
+| <strong>Klasa</strong> 			 | <strong>Zastosowanie</strong>                                                                                                                         |
+| :---         						 |     :--- |
+| `StringUtils`                      | Zaawansowana manipulacja łańcuchami znaków (np. `isBlank`, `capitalize`, `join`, `split`, `remove`, `reverse`, `containsIgnoreCase`) |
+| `ObjectUtils`                      | Ułatwienia przy operowaniu na obiektach, np. `ObjectUtils.defaultIfNull(...)`                                                        |
+| `ArrayUtils`                       | Dodatkowe metody dla tablic                                                                                                          |
+| `RandomStringUtils`                | Generowanie losowych stringów                                                                                                        |
+| `Validate`                         | Walidacja argumentów z automatycznym rzucaniem wyjątków                                                                              |
+| `StopWatch`                        | Pomiar czasu trwania operacji                                                                                                        |
+| `ExceptionUtils`                   | Obsługa wyjątków (np. wyciąganie przyczyn, getStackTrace(e))                                                                                           |
+| `ToStringBuilder`, `EqualsBuilder` | Ułatwienia do implementacji metod `toString()`, `equals()` i `hashCode()`                                                            |
+
+```
+<dependency>
+	<groupId>org.apache.commons</groupId>
+	<artifactId>commons-lang3</artifactId>
+	<version>3.13.0</version> <!-- lub najnowsza wersja -->
+</dependency>
+```		

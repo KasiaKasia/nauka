@@ -1,0 +1,31 @@
+# Pliki builda
+/target/
+
+# Pliki IDE (IntelliJ, Eclipse)
+.idea/
+*.iml
+*.ipr
+*.iws
+
+# Eclipse
+.classpath
+.project
+.settings/
+
+# Systemowe
+.DS_Store
+Thumbs.db
+
+# Logi
+*.log
+
+# Test coverage
+jacoco.exec
+
+# Pliki tymczasowe
+*.tmp
+*.bak
+*.swp
+
+# Pliki środowiskowe
+.env
