@@ -56,3 +56,67 @@ Klasy pomocnicze, np.:
 	<version>3.13.0</version> <!-- lub najnowsza wersja -->
 </dependency>
 ```		
+- [ ] `junit-jupiter` - dodaje do projektu JUnit Jupiter, czyli główny moduł JUnit 5, który służy do pisania i uruchamiania testów jednostkowych w Javie.
+
+junit-jupiter to zestaw bibliotek testowych, który obejmuje:
+
+1. API do pisania testów (adnotacje i asercje):
+- @Test, @BeforeEach, @AfterEach, @BeforeAll, @AfterAll, @DisplayName, @Disabled itp.
+- Assertions.assertEquals(), Assertions.assertThrows() itd.
+
+2. Engine testowy do uruchamiania testów Jupiter (czyli JUnit 5).
+
+```
+<dependency>
+    <groupId>org.junit.jupiter</groupId>
+    <artifactId>junit-jupiter</artifactId>
+    <version>5.10.0</version> <!-- lub nowsza -->
+    <scope>test</scope>
+</dependency>
+```
+
+- [ ] `assertj-core` - to nowoczesna, rozszerzalna biblioteka do pisania asercji w testach jednostkowych w języku Java. 
+Jest często używana razem z JUnit (głównie JUnit 5 – Jupiter) i zapewnia bardziej czytelne, płynne i rozbudowane asercje niż standardowe assertEquals, assertTrue itp.
+
+
+Bogaty zestaw metod porównujących dane:
+
+- isEqualTo(), isNotEqualTo()
+- isNull(), isNotNull()
+- contains(...), doesNotContain(...) (dla kolekcji i ciągów znaków)
+- startsWith(), endsWith(), matches(...) (dla tekstów)
+- isEmpty(), hasSize(...), containsExactly(...) (dla kolekcji)
+- hasFieldOrPropertyWithValue(...) (dla obiektów)
+- extracting(...) – do mapowania wartości z obiektu
+
+Obsługuje wiele typów danych:
+
+- Obiekty (POJO)
+- Kolekcje (List, Set, Map)
+- Tablice (int[], String[])
+- Stringi (String)
+- Strumienie (Stream)
+- Daty (LocalDate, ZonedDateTime itd.)
+- Wyjątki (assertThatThrownBy(...))
+
+```
+<dependency>
+    <groupId>org.assertj</groupId>
+    <artifactId>assertj-core</artifactId>
+    <version>3.24.2</version> <!-- lub inna wersja -->
+    <scope>test</scope>
+</dependency>
+
+```
+
+## Piramida testów
+E2E
+Integracyjne
+Jednostkowe
+
+Piramida testów - hierarchia różnych testów typów testów. 
+Gdzie liczba testów zależy od kosztu ich wykonania. Im typ testu jest tańszy i szybszy w uruchomieniu, tym niżej znajduje się on w piramidzie testów.
+Jednocześnie wielkość pola w piramidzie oznacza udział liczby testów w ogólnej liczbie wszystkich testów. 
+Oznacza to, że testy jednostkowe są najbardziej stabilne, najtańsze i najszybsze w wykonaniu i tych testów powinno być najwięcej.
+
+Nieco droższe w wykonaniu będą testy integracyjne, a najdroższe są testy E2E.
