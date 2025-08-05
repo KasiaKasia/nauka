@@ -1,0 +1,13 @@
+pl\przyklad\exeption\ErrorResponse$ErrorResponseBuilder.class
+pl\przyklad\nauka\uczen\UczenService.class
+pl\przyklad\nauka\uczen\UczenResponse.class
+pl\przyklad\exeption\UczenExceptionHandler.class
+pl\przyklad\nauka\uczen\UczenMapper.class
+pl\przyklad\exeption\ErrorResponse.class
+pl\przyklad\nauka\uczen\UczenController.class
+pl\przyklad\exeption\ValidationError.class
+pl\przyklad\nauka\uczen\Uczen.class
+pl\przyklad\nauka\App.class
+pl\przyklad\nauka\uczen\UczenRequest$UczenRequestBuilder.class
+pl\przyklad\nauka\uczen\UczenRequest.class
+pl\przyklad\nauka\uczen\UczenRepository.class
