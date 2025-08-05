@@ -40,8 +40,7 @@ public class UczenController {
 		return service.findById(id);
 	}
 
-	@PostMapping
-	@ResponseStatus(HttpStatus.CREATED)
+	
 	/*
 	 * @Valid - uruchomił automatyczną walidację (np. @NotBlank, @Size, itp.) na
 	 * polach obiektu.)
@@ -49,7 +48,9 @@ public class UczenController {
 	 * @RequestBody - przyjmuje dane żądania np.: w formacie JSON i mapuje je na
 	 * obiekt Java W naszym przypadku mapuje na obiekt UczenRequest
 	 */
-	public UczenResponse createUczen(@Valid @RequestBody UczenRequest newCustomer) {
+	@PostMapping
+	@ResponseStatus(HttpStatus.CREATED)
+	public UczenResponse createUczen(@RequestBody @Valid UczenRequest newCustomer) {
 		return service.save(newCustomer);
 	}
 
