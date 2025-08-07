@@ -29,8 +29,9 @@ public class SecurityConfig {
 // standardowa nazwa użytkownika to: user, a hasło wyswietla się w konsoli
 
 		// httpBasic - każde request ma być uwierzytelniane przez HTTP basic
+		// dla endpoint "http://localhost:8081/bezUwierzytelniania", "http://localhost:8081/bezHaslaINazwyUzytkownika" będzie wyłaczona autoryzacja
 		http.authorizeHttpRequests(
-				auth -> auth.requestMatchers("/liveness", "/readiness").permitAll().anyRequest().authenticated())
+				auth -> auth.requestMatchers("/bezUwierzytelniania", "/bezHaslaINazwyUzytkownika").permitAll().anyRequest().authenticated())
 				.httpBasic(withDefaults());
 
 		return http.build();

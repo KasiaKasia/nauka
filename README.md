@@ -209,6 +209,7 @@ Spring Security sam nie blokuje takich ataków, ale można dodać łatwo:
 - opóźnienie między próbami,
 
 - CAPTCHA, itp.
+
 ```
         <dependency>
             <groupId>org.springframework.boot</groupId>
