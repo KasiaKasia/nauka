@@ -79,7 +79,7 @@ junit-jupiter to zestaw bibliotek testowych, który obejmuje:
 Jest często używana razem z JUnit (głównie JUnit 5 – Jupiter) i zapewnia bardziej czytelne, płynne i rozbudowane asercje niż standardowe assertEquals, assertTrue itp.
 
 
-Bogaty zestaw metod porównujących dane:
+ ✅ Bogaty zestaw metod porównujących dane:
 
 - isEqualTo(), isNotEqualTo()
 - isNull(), isNotNull()
@@ -89,7 +89,7 @@ Bogaty zestaw metod porównujących dane:
 - hasFieldOrPropertyWithValue(...) (dla obiektów)
 - extracting(...) – do mapowania wartości z obiektu
 
-Obsługuje wiele typów danych:
+ ✅ Obsługuje wiele typów danych:
 
 - Obiekty (POJO)
 - Kolekcje (List, Set, Map)
@@ -108,11 +108,31 @@ Obsługuje wiele typów danych:
 </dependency>
 
 ```
+- [ ] `mockito-junit-jupiter` - służy do mackowania obiektów w testach jednostkowych. Makowanie to technika imitacji obiektów, które zastępują rzeczywistość w testach jednostkowych.
+
+
+Zawartość biblioteki `mockito-junit-jupiter`
+
+| Element                                   | Opis                                                      |
+| :---         						 |     :--- |
+|   `MockitoExtension`                        | Umożliwia integrację z JUnit 5 za pomocą `@ExtendWith`.   |
+|   Obsługa `@Mock`, `@InjectMocks`           | Można używać bez ręcznego inicjowania (`initMocks`).      |
+|   Integracja z silnikiem Jupiter (JUnit 5)  | Współpracuje z cyklem życia testów (`@BeforeEach`, itp.). | 
+
+```
+<dependency>
+    <groupId>org.mockito</groupId>
+    <artifactId>mockito-junit-jupiter</artifactId>
+    <version>5.12.0</version> <!-- lub najnowsza dostępna wersja -->
+    <scope>test</scope>
+</dependency>
+ 
+```
 
 ## Piramida testów
-E2E
-Integracyjne
-Jednostkowe
+ ✅ E2E
+ ✅ Integracyjne
+ ✅ Jednostkowe
 
 Piramida testów - hierarchia różnych testów typów testów. 
 Gdzie liczba testów zależy od kosztu ich wykonania. Im typ testu jest tańszy i szybszy w uruchomieniu, tym niżej znajduje się on w piramidzie testów.

@@ -1,6 +1,7 @@
 package pl.nauka.pl.nauka2;
 
 import pl.przyklad.nauka.uczen.Uczen;
+import pl.przyklad.nauka.uczen.UczenRequest;
 import pl.przyklad.nauka.uczen.UczenResponse;
 
 public class UczenTestUtility {
@@ -11,7 +12,12 @@ public class UczenTestUtility {
     public static final Uczen WLADEK = Uczen.builder().id(1).imie("Władek").nazwisko("Szeran").build();
     public static final Uczen TOMASZ = Uczen.builder().id(2).imie("Tomasz").nazwisko("Holenderski").build();
     public static final Uczen KATARZYNA = Uczen.builder().id(3).imie("Katarzyna").nazwisko("Kowalska").build();
+ 
+    
+    public static final UczenRequest KATARZYNA_REQUEST= UczenRequest.builder().imie("Katarzyna").nazwisko("Kowalska").build();
+    public static final UczenRequest TOMASZ_REQUEST= UczenRequest.builder().imie("Tomasz").nazwisko("Holenderski").build();
 
+    
     public UczenTestUtility() {}
 	
 	public static UczenResponse utworzUczenResponse(int id, String imie, String nazwisko) {

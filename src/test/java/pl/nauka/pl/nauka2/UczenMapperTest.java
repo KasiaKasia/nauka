@@ -3,7 +3,7 @@ package pl.nauka.pl.nauka2;
 import static pl.nauka.pl.nauka2.UczenTestUtility.*;
 
 import static org.assertj.core.api.Assertions.assertThat;
-import static org.junit.jupiter.api.Assertions.*;
+//import static org.junit.jupiter.api.Assertions.*;
 import java.util.List;
 
 import org.junit.jupiter.api.Test;
@@ -14,10 +14,10 @@ import pl.przyklad.nauka.uczen.UczenMapper;
 class UczenMapperTest {
 	private final UczenMapper underTest = new UczenMapper();
 
-	@Test
-	void test() {
-		fail("Not yet implemented");
-	}
+//	@Test
+//	void test() {
+//		fail("Not yet implemented");
+//	}
 
 	// metoda testuje mapowanie jednego obiektu Uczen na jego DTO.
 	@Test
