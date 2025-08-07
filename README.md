@@ -129,6 +129,26 @@ Zawartość biblioteki `mockito-junit-jupiter`
  
 ```
 
+- [ ] `spring-boot-starter-cache` - zależność dodana do projektu Spring Boot wspiera cachowanie (pamięci podręcznej).
+
+Poozwala używać adnotacji takich jak:
+
+| Element 	| Opis                                                      |
+| :--- 		|     :--- |
+|`@EnableCaching`	| włącza mechanizm cache w aplikacji Spring |
+|`@Cacheable` 		| oznacza, że wynik metody ma być cache’owany |
+|`@CachePut` 		| aktualizuje dane w cache |
+|`@CacheEvict` 		| usuwa dane z cache |
+
+
+```
+    <dependency>
+        <groupId>org.springframework.boot</groupId>
+        <artifactId>spring-boot-starter-cache</artifactId>
+    </dependency>
+```
+
+
 ## Piramida testów
  ✅ E2E
  ✅ Integracyjne
@@ -140,3 +160,27 @@ Jednocześnie wielkość pola w piramidzie oznacza udział liczby testów w ogó
 Oznacza to, że testy jednostkowe są najbardziej stabilne, najtańsze i najszybsze w wykonaniu i tych testów powinno być najwięcej.
 
 Nieco droższe w wykonaniu będą testy integracyjne, a najdroższe są testy E2E.
+
+## Testy Black-box (testowanie czarnoskrzynkowe) i White-box (testowanie białoskrzynkowe)
+
+
+🔳 White-box 
+
+🧠 Opis:
+
+✅ Tester ZNA kod źródłowy i jego logikę.
+
+✅ Testy opierają się na wewnętrznej strukturze i przepływie kontroli.
+
+✅Sprawdza się konkretne ścieżki, warunki, pętle itp.
+
+
+🔳 Black-box
+
+🧠 Opis:
+
+✅ Tester NIE ZNA wewnętrznej implementacji kodu.
+
+✅ Testuje się zewnętrzne zachowanie aplikacji: wejścia → wyjścia.
+
+✅ Często stosowane przez testerów manualnych, QA, a także w testach integracyjnych i akceptacyjnych.

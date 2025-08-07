@@ -6,6 +6,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Objects;
 
 /*
  * Tworzy konstruktor tylko dla pól oznaczonych jako final lub @NonNull
@@ -31,7 +32,10 @@ public class UczenController {
 	 * formacie JSON bo jest @RestController
 	 */
 	@GetMapping
-	public List<UczenResponse> getAll() {
+	public List<UczenResponse> getAll(@RequestParam(required = false) String klasa) {
+		if (Objects.nonNull(klasa)) {
+			return service.findByKlasa(klasa);
+		}
 		return service.findAll();
 	}
 
@@ -40,7 +44,6 @@ public class UczenController {
 		return service.findById(id);
 	}
 
-	
 	/*
 	 * @Valid - uruchomił automatyczną walidację (np. @NotBlank, @Size, itp.) na
 	 * polach obiektu.)

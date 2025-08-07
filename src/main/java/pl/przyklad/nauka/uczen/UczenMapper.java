@@ -20,6 +20,7 @@ public class UczenMapper {
 		uczenDto.setId(uczen.getId());
 		uczenDto.setImie(uczen.getImie());
 		uczenDto.setNazwisko(uczen.getNazwisko());
+		uczenDto.setKlasa(uczen.getKlasa());
 		return uczenDto;
 	}
 

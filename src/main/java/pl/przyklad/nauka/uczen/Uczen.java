@@ -27,4 +27,9 @@ public class Uczen {
 	private String imie;
 
 	private String nazwisko;
+	
+
+    private String klasa;
+	
+	
 }
