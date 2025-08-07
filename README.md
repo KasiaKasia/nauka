@@ -148,7 +148,73 @@ Poozwala używać adnotacji takich jak:
     </dependency>
 ```
 
+- [ ] `spring-boot-starter-data-redis` - włącza obsługę Redis. Czyli szybkiego magazynu danych NoSQL działającego w pamięci w aplikacji Spring Boot. Jest częścią Spring Data.
 
+✅ Redis (skrót od REmote DIctionary Server) - działa w RAM-ie. Dlatego jest błyskawiczny. Przechowuje dane w formacie klucz – wartość.
+
+Może również pracować z bardziej złożonymi strukturami danych:
+
+- string, list, set, sorted set, hash, bitmap, hyperloglog itp.
+
+```
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-data-redis</artifactId>
+        </dependency>
+```
+- [ ] Spring Security to framework do zabezpieczania aplikacji Java, szczególnie tych tworzonych z użyciem Spring Boot. 
+Zapewnia gotowe mechanizmy uwierzytelniania i autoryzacji, które można łatwo konfigurować i rozszerzać.
+
+🔐 Co robi Spring Security?
+
+1. Uwierzytelnianie (Authentication)
+
+Sprawdza, kim jesteś – np. poprzez login i hasło, token JWT, OAuth2, itp.
+
+2. Autoryzacja (Authorization)
+
+Sprawdza, czy masz dostęp do określonych zasobów – np. tylko administrator może usunąć użytkownika.
+
+
+✅ Spring Security chroni Twoją aplikację przed kilkoma popularnymi i niebezpiecznymi atakami webowymi.
+
+🧨 1. CSRF (Cross-Site Request Forgery) - atak polega na oszukaniu zalogowanego użytkownika , żeby wykonał nieautoryzowana akcje na innej stronie 
+
+🛡️ Spring Security:
+Domyslnie chroni aplikacje z formularzami przez dodanie specjalnego tokena CSRF do każdego żądania typu `POST`, `PUT`, `DELETE`. Token musi sie zgadzać , w przeciwnym razie żadanie zostanie odrzucone
+
+🧬 2.  XSS (Cross-Site Scripting ) - atakujący wstrzykuje złośliwy kod JavaScript do treści wyświetlanej innym użytkownikom. Może to prowadzić do kradzieży sesji, danych logowania itp.
+
+🛡️ Spring Security:
+Spring Security sam nie filtruje XSS, ale Spring Framework (np. Thymeleaf) automatycznie escapuje dane, co zapobiega XSS. 
+Można też włączyć dodatkowe nagłówki bezpieczeństwa (jak `Content-Security-Policy`) w Spring Security.
+
+🔓 3. Session Fixation - atak polega na tym, że napastnik wymusza konkretną sesję przed zalogowaniem ofiary, aby później przejąć tę sesję.
+
+🛡️ Spring Security:
+Automatycznie tworzy nową sesję po zalogowaniu – co eliminuje ten problem.
+
+🕸️ 4. Clickjacking - ofiara zostaje nakłoniona do kliknięcia w coś, co wygląda niewinnie, ale w rzeczywistości wykonuje akcję np. na stronie banku, ukrytej w ramce iframe.
+
+🛡️ Spring Security:
+Domyślnie ustawia nagłówek `X-Frame-Options: DENY`, który blokuje ładowanie strony w iframe.
+
+📂 5. Brute-force (atak siłowy na hasła) - automatyczne próby logowania przez odgadywanie haseł (np. skryptem).
+
+🛡️ Spring Security:
+Spring Security sam nie blokuje takich ataków, ale można dodać łatwo:
+
+- limit prób logowania,
+
+- opóźnienie między próbami,
+
+- CAPTCHA, itp.
+```
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-security</artifactId>
+        </dependency>
+		```
 ## Piramida testów
  ✅ E2E
  ✅ Integracyjne
