@@ -162,6 +162,8 @@ Może również pracować z bardziej złożonymi strukturami danych:
             <artifactId>spring-boot-starter-data-redis</artifactId>
         </dependency>
 ```
+
+
 - [ ] Spring Security to framework do zabezpieczania aplikacji Java, szczególnie tych tworzonych z użyciem Spring Boot. 
 Zapewnia gotowe mechanizmy uwierzytelniania i autoryzacji, które można łatwo konfigurować i rozszerzać.
 
@@ -205,17 +207,17 @@ Domyślnie ustawia nagłówek `X-Frame-Options: DENY`, który blokuje ładowanie
 Spring Security sam nie blokuje takich ataków, ale można dodać łatwo:
 
 - limit prób logowania,
-
 - opóźnienie między próbami,
-
 - CAPTCHA, itp.
 
 ```
-        <dependency>
-            <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-starter-security</artifactId>
-        </dependency>
-		```
+<dependency>
+	<groupId>org.springframework.boot</groupId>
+    <artifactId>spring-boot-starter-security</artifactId>
+</dependency>
+```
+		
+		
 ## Piramida testów
  ✅ E2E
  ✅ Integracyjne
