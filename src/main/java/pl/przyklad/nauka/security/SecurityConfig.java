@@ -16,6 +16,11 @@ import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
+
+import org.springframework.security.authentication.AuthenticationManager;
+import org.springframework.security.authentication.ProviderManager;
+import org.springframework.security.authentication.dao.DaoAuthenticationProvider;
+
 /*
  * @EnableWebSecurity - adnotacja informuje Spring , że ta klasa jest odpowiedzialna za konfigurację mechanizmów 
  * zabezpieczeń webowych
@@ -45,28 +50,45 @@ public class SecurityConfig {
 
 		return http.build();
 	}
-
-	@Bean
-	public UserDetailsService userDetailsService() {
-        var root = User.builder()
-                .username("root")
-                .password(passwordEncoder().encode("password"))
-                .roles("ADMIN")
-                .build();
-
-        var janek = User.builder()
-                .username("janek")
-                .password(passwordEncoder().encode("pass"))
-                .roles("CUSTOMER")
-                .build();
-
-
-		return new InMemoryUserDetailsManager(root, janek);
-	}
+// to juz mamy jako UserService
+//	@Bean
+//	public UserDetailsService userDetailsService() {
+//        var root = User.builder()
+//                .username("root")
+//                .password(passwordEncoder().encode("password"))
+//                .roles("ADMIN")
+//                .build();
+//
+//        var janek = User.builder()
+//                .username("janek")
+//                .password(passwordEncoder().encode("pass"))
+//                .roles("CUSTOMER")
+//                .build();
+//
+//
+//		return new InMemoryUserDetailsManager(root, janek);
+//	}
 
 	@Bean
 	public PasswordEncoder passwordEncoder() {
 		return new BCryptPasswordEncoder();
+	}
+/*
+ * AuthenticationManager - to interface w Spring Security, ktory odpowiada za proces uwierzytelniania użytkowników
+ * Jego głownym zadaniem jest przyjmowanie obiektu authentication i próba uwierzyteniania użytkownika z wykorzystaniem 1 lub wielu dostępnych 
+ * authentication providerów . Authentication provider w tym przykłądzie to: DaoAuthenticationProvider - to implementacja prowadera, 
+ * która właśnie używa UserDetailsService do pobrania informacji o użytkowniku i porównania hasła z hasłem przekazanym w procesie uwierzytelniania
+ * */
+	@Bean
+	public AuthenticationManager authenticationManager(UserDetailsService userDetailsService) {
+		
+		/*
+		 * W Spring Boot, wzorzec Data Access Object (DAO) służy do oddzielenia logiki dostępu do danych od reszty aplikacji.
+		 * */
+		var provider = new DaoAuthenticationProvider();
+		provider.setUserDetailsService(userDetailsService);
+		provider.setPasswordEncoder(passwordEncoder());
+		return new ProviderManager(provider);
 	}
 
 }

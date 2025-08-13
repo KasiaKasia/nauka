@@ -28,8 +28,5 @@ public class Uczen {
 
 	private String nazwisko;
 	
-
-    private String klasa;
-	
-	
+    private String klasa;	
 }
