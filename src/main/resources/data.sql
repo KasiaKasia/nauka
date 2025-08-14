@@ -1,11 +1,4 @@
--- UCZEN
-insert into uczniowie(imie, nazwisko, klasa)
-values ('Władek', 'Szeran', 'IA'),
-       ('Tomasz', 'Holenderski', 'IB'),
-       ('Katarzyna', 'Kowalska', 'IC'),
-       ('Nikola', 'Jakowska', 'IIA'),
-       ('Natalia', 'Nowak', 'IIIA'),
-       ('Adrian', 'Celik', 'IVC');
+
        
        
 -- USERS
@@ -23,3 +16,12 @@ insert into authorities (username, authority)
 values ('admin', 'ADMIN'),
        ('edszer', 'CUSTOMER'),
        ('nikosia', 'CUSTOMER');
+
+-- UCZEN
+insert into uczniowie(imie, nazwisko, klasa, username)
+values ('Władek', 'Szeran', 'IA', 'edszer'),
+       ('Tomasz', 'Holenderski', 'IB', null),
+       ('Katarzyna', 'Kowalska', 'IC', null),
+       ('Nikola', 'Jakowska', 'IIA', 'nikosia'),
+       ('Natalia', 'Nowak', 'IIIA', null),
+       ('Adrian', 'Celik', 'IVC', null);

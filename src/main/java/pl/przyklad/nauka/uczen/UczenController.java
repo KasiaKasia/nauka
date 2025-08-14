@@ -3,6 +3,7 @@ package pl.przyklad.nauka.uczen;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
+import org.springframework.security.access.prepost.PostAuthorize;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.config.annotation.method.configuration.EnableMethodSecurity;
 import org.springframework.web.bind.annotation.*;
@@ -34,6 +35,7 @@ public class UczenController {
 	 * formacie JSON bo jest @RestController
 	 */
 	@GetMapping
+	@PreAuthorize("hasAuthority('ADMIN')")
 	public List<UczenResponse> getAll(@RequestParam(required = false) String klasa) {
 		if (Objects.nonNull(klasa)) {
 			return service.findByKlasa(klasa);
@@ -42,6 +44,21 @@ public class UczenController {
 	}
 
 	@GetMapping("/{id}")
+	/*
+	 * @PreAuthorize("hasAuthority('ADMIN')") i @PostAuthorize("hasAuthority('ADMIN')") - te 2 adnotacje róznią się od siebie tylko tym, 
+	 * kiedy warunek sprawdzania dostępu do danej metody jest sprawdzany
+	 * 
+	 * PreAuthorize - jest wykonywany PRZED uruchomieniem metody 
+	 * PostAuthorize - jest wykonywany PO uruchomieniu danej metody
+	 * 
+	 * returnObject.username → nazwa użytkownika obiektu User.
+	 * 
+	 * authentication - obiekt służy do uwierzytelniania 
+	 * principal - użytkownik który jest w tym obiekcie uwierzytelniania zapisany
+	 * username - nazwa uzytkownika obiektu uwierzytelniania
+	 * authentication.principal.username - nazwa użytkownika aktualnie zalogowanego (z obiektu Principal w kontekście Spring Security).
+	 * */
+	 @PostAuthorize("hasAuthority('ADMIN') or returnObject.username == authentication.principal.username")
 	public UczenResponse getById(@PathVariable Integer id) {
 		return service.findById(id);
 	}

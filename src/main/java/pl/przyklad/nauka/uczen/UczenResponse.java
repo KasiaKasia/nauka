@@ -8,5 +8,6 @@ public class UczenResponse {
 	private String imie;
 	private String nazwisko;
 	private String klasa;
+	private String username;
 }
 //public record UczenResponse( Integer id,  String imie,  String nazwisko ) {}

@@ -5,6 +5,18 @@ import org.springframework.stereotype.Component;
 import java.util.Collection;
 import java.util.List;
 import java.util.stream.Collectors;
+/*
+ * static w import pozwala używać jej bez podawania nazwy klasy. Czyli już tak nie musimy pisać:
+  if (Objects.nonNull(user)) {
+    // ...
+	}
+  wystarczy taki zapis:
+  if (nonNull(user)) { 
+  //
+    }
+
+ * */
+import static java.util.Objects.nonNull;
 
 /*
  * @Component - adnotacja @Component w Spring oznacza, że klasa jest komponentem zarządzającym przez Springa 
@@ -21,6 +33,10 @@ public class UczenMapper {
 		uczenDto.setImie(uczen.getImie());
 		uczenDto.setNazwisko(uczen.getNazwisko());
 		uczenDto.setKlasa(uczen.getKlasa());
+		if(nonNull(uczen.getUser())) {
+			uczenDto.setUsername(uczen.getUser().getUsername());
+		}
+		
 		return uczenDto;
 	}
 

@@ -6,6 +6,7 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import pl.przyklad.nauka.user.User;
 @Data
 @Builder
 @AllArgsConstructor
@@ -28,5 +29,9 @@ public class Uczen {
 
 	private String nazwisko;
 	
-    private String klasa;	
+    private String klasa;
+    
+    @OneToOne
+    @JoinColumn(name = "username", referencedColumnName = "username")
+    private User user;
 }
