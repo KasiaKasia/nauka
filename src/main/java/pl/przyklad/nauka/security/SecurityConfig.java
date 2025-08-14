@@ -9,6 +9,7 @@ import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.web.SecurityFilterChain;
 
+import jakarta.servlet.http.HttpServletResponse;
 import pl.przyklad.nauka.uczen.Uczen;
 
 import static org.springframework.security.config.Customizer.withDefaults;
@@ -54,6 +55,18 @@ public class SecurityConfig {
 		http
 		.cors(cors -> cors.disable()) // włącza obsługę CORS (możesz później skonfigurować np. CorsConfigurationSource jako bean).
         .csrf(csrf -> csrf.disable()) //  wyłącza CSRF, co przy REST API + stateless JWT/basic auth jest standardem.
+        
+        .exceptionHandling(ex -> ex
+        		// accessDeniedHandler - Wywoływane, gdy użytkownik jest zalogowany, ale nie ma uprawnień do wywołania danego endpointa.
+        	    .accessDeniedHandler((request, response, accessDeniedException) -> {
+        	        response.sendError(HttpServletResponse.SC_FORBIDDEN, "Access Denied!");
+        	    })
+        	    // authenticationEntryPoint - Wywoływane, gdy użytkownik w ogóle nie jest zalogowany lub nie podał poprawnych danych logowania.
+        	    // Przykład: próbujesz wejść na /profile, ale nie masz w nagłówkach Authorization.
+        	    .authenticationEntryPoint((request, response, authException) -> {
+        	        response.sendError(HttpServletResponse.SC_UNAUTHORIZED, "Unauthorized!");
+        	    })
+        	)
         .sessionManagement(session -> session
             .sessionCreationPolicy(SessionCreationPolicy.STATELESS) // ustawia tryb sesji na stateless, czyli Spring Security nie tworzy i nie utrzymuje sesji HTTP.
         ).authorizeHttpRequests(auth -> auth.requestMatchers("/bezUwierzytelniania", "/bezHaslaINazwyUzytkownika")
