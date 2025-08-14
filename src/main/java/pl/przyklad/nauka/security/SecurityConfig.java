@@ -2,8 +2,10 @@ package pl.przyklad.nauka.security;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.security.config.annotation.method.configuration.EnableMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
+import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.web.SecurityFilterChain;
 
@@ -27,6 +29,10 @@ import org.springframework.security.authentication.dao.DaoAuthenticationProvider
  * */
 @Configuration
 @EnableWebSecurity
+/*
+ * @EnableMethodSecurity - adnotacja jest używana w Spring do włączenia zabezpieczeń na poziomie metod dla aplikacji
+ * */
+@EnableMethodSecurity(proxyTargetClass=true)
 public class SecurityConfig {
 
 	/*
@@ -45,8 +51,16 @@ public class SecurityConfig {
 		// dla endpoint "http://localhost:8081/bezUwierzytelniania",
 		// "http://localhost:8081/bezHaslaINazwyUzytkownika" będzie wyłaczona
 		// autoryzacja
-		http.authorizeHttpRequests(auth -> auth.requestMatchers("/bezUwierzytelniania", "/bezHaslaINazwyUzytkownika")
-				.permitAll().anyRequest().authenticated()).httpBasic(withDefaults());
+		http
+		.cors(cors -> cors.disable()) // włącza obsługę CORS (możesz później skonfigurować np. CorsConfigurationSource jako bean).
+        .csrf(csrf -> csrf.disable()) //  wyłącza CSRF, co przy REST API + stateless JWT/basic auth jest standardem.
+        .sessionManagement(session -> session
+            .sessionCreationPolicy(SessionCreationPolicy.STATELESS) // ustawia tryb sesji na stateless, czyli Spring Security nie tworzy i nie utrzymuje sesji HTTP.
+        ).authorizeHttpRequests(auth -> auth.requestMatchers("/bezUwierzytelniania", "/bezHaslaINazwyUzytkownika")
+				.permitAll()
+				.anyRequest()
+				.authenticated())
+        .httpBasic(withDefaults()); //  ustawia HTTP Basic jako mechanizm uwierzytelniania.
 
 		return http.build();
 	}
